@@ -1,0 +1,9 @@
+{ 
+    "images": [
+        "img/derivatives/0.jpg", 
+        "img/derivatives/1.jpg",
+        "img/derivatives/2.jpg",
+        "img/derivatives/3.jpg"
+    ], 
+    "name": "Derivatives"
+}

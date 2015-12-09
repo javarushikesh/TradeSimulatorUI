@@ -1,0 +1,34 @@
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel-body">
+                <a href="#/demos" role="button" class="btn btn-outline btn-primary pull-left">Demo Home!</a>
+            </div>    
+        </div>
+    </div>
+<h1>{{phone.name}}</h1>
+
+<!-- Carousel -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel" ng-controller="PhoneDetailCtrl" data-interval="false"> 
+    <!-- Indicators -->
+    <ol class="carousel-indicators"  >
+        <li data-target="#myCarousel" ng-repeat="img in phone.images"  ng-class="{active: mainImageUrl==img}" data-slide-to="{{$index}}"></li>
+    </ol>
+    
+    <div class="carousel-inner">
+        <div ng-class="{item: true, active : (mainImageUrl==img)}" ng-repeat="img in phone.images"> <img ng-src="{{img}}" alt="Slide numder {{img}}">
+            <div class="container">
+                <div class="carousel-caption"> </div>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="javascript:void();#myCarousel" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> 
+    <a class="right carousel-control" href="javascript:void();#myCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a> 
+</div>
+<!-- /.carousel -->
+
+<div class="container" ng-controller="AudioCtrl"></div>
+
+
+	<button class="btn btn-default btn-circle" id="replay"><i class="fa fa-youtube-play"></i></button>
+	<button class="btn btn-default btn-circle" id="pause"><i class="fa fa-pause"></i></button>
+	<button class="btn btn-default btn-circle" id="resume"><i class="fa fa-play"></i></button>

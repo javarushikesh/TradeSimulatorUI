@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Trading Simulator</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap Core CSS -->
+  <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- DataTables CSS -->
+  <link href="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+  <!-- DataTables Responsive CSS -->
+  <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">    
+  <link rel="stylesheet" href="app.css">
+
+</head>
+<body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+    <div class="container">
+        <br>
+        <br>
+        <div class="col-md-4 col-md-offset-4">
+            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+        </div>    
+        <div ng-view></div>
+        <!-- Footer -->
+        <footer>
+            <p>Trading Simulator : v <span app-version></span></p>
+        </footer>
+    </div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+    <!-- jQuery -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>    
+  <script src="app.js"></script>
+  <script src="view1/view1.js"></script>
+  <script src="view2/view2.js"></script>
+  <script src="login/login.js"></script> 
+  <script src="register/register.js"></script>
+  <script src="app-services/userService.js"></script>
+  <script src="app-services/flashService.js"></script>
+  <script src="app-services/authenticationService.js"></script>
+  <script src="home/home.js"></script>
+    <script src="buysell/buysell.js"></script>
+  <script src="app-services/stockPriceService.js"></script>    
+  <script src="components/stocksheader/stocksheader.js"></script>    
+  <script src="components/navbar/navbar.js"></script>     
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+  <script src="home/homewidgets/homewidgets.js"></script>
+  <script src="home/marketsummary/marketsummary.js"></script>
+  <script src="home/barchart/barchart.js"></script>
+  <script src="demos/controllers.js"></script>
+  <script src="demos/filters.js"></script>
+  <script src="demos/services.js"></script>
+  <script src="quotes/quotes.js"></script>
+  <script src="home/news/jquery.bootstrap.newsbox.min.js"></script>
+     <link href="bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css" rel="stylesheet">
+     <script src="bower_components/jquery-ui/jquery-ui.min.js"></script> 
+  <script src="home/news/news.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  
+  <!-- Marquee Script-->    
+  <script type="text/javascript" src="bower_components/jquery.marquee/jquery.marquee.min.js">   </script>
+  <!-- DataTables JavaScript -->
+  <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"> </script>    
+  <script type="application/javascript">
+    $(".toggle").on("click", function () {
+        $(".marquee").toggleClass("microsoft");
+    });
+  </script>    
+</body>
+</html>

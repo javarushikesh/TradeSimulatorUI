@@ -1,0 +1,168 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+/* Make it a marquee */
+.marquee {
+    margin: 1em auto;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    animation: marquee 50s linear infinite;
+}
+
+.marquee:hover {
+    animation-play-state: paused
+}
+
+/* Make it move */
+@keyframes marquee {
+    0%   { text-indent: 27.5em }
+    100% { text-indent: -105em }
+}
+
+/* Style toggle button */
+.toggle {
+	display: block;
+    margin: 2em auto;
+}
+
+.huge {
+    font-size: 40px;
+}
+
+.panel-green {
+    border-color: #5cb85c;
+}
+
+.panel-green .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.panel-green a {
+    color: #5cb85c;
+}
+
+.panel-green a:hover {
+    color: #3d8b3d;
+}
+
+.panel-red {
+    border-color: #d9534f;
+}
+
+.panel-red .panel-heading {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.panel-red a {
+    color: #d9534f;
+}
+
+.panel-red a:hover {
+    color: #b52b27;
+}
+
+.panel-yellow {
+    border-color: #f0ad4e;
+}
+
+.panel-yellow .panel-heading {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+.panel-yellow a {
+    color: #f0ad4e;
+}
+
+.panel-yellow a:hover {
+    color: #df8a13;
+}
+
+.flot-chart {
+    display: block;
+    height: 300px;
+}
+
+.flot-chart-content {
+    width: 100%;
+    height: 100%;
+}
+.show-grid [class^=col-lg]{
+    padding-top:7px;
+    padding-bottom:7px;
+    background-color:#eee;
+    border:1px solid #ddd;
+    border:1px solid rgba(86,61,124,.2)
+}
+.show-grid [class^=col-sm]{
+    background-color:#eee;
+    border:1px solid #ddd;
+    border:1px solid rgba(86,61,124,.2)
+}
+.show-grid [class^=col-md]{
+    padding-top:6px;
+    padding-bottom:6px;
+    background-color:#eee;
+    border:1px solid #ddd;
+    border:1px solid rgba(86,61,124,.2)
+}
+.show-grid-lg [class^=col-lg]{
+    padding-top:7px;
+    padding-bottom:7px;
+    background-color:#eee;
+}
+.carousel-indicators li {
+    background-color: #999;
+    background-color: rgba(70,70,70,.25);
+}
+.carousel-indicators .active {
+    background-color: #444;
+}
+.panel ul {
+    padding:0px;
+    margin:0px;
+    list-style:none;
+}
+.news-item {
+    padding:4px 4px;
+    margin:0px;
+    border-bottom:1px dotted #555; 
+}    
+
+.confirmation-div-bg {
+    background-color: lightgreen !important;
+}

@@ -1,0 +1,43 @@
+<trade-simulator-navbar></trade-simulator-navbar>
+<div id="page-wrapper">
+        <div class="row">
+        <div class="col-lg-12">
+            <h4 class="page-header">Order Book</h4>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+   <table class="table table-condensed table-bordered">
+    <thead>
+      <tr class="info">
+        <th class="text-center">Date</th>
+        <th class="text-center">Stock</th>
+        <th class="text-center">Action</th>
+        <th class="text-center">Qty.</th>
+        <th class="text-center">Price#</th>          
+        <th class="text-center">Order Value</th>          
+        <th class="text-center">Brokerage</th>
+        <th class="text-center">Taxes</th>
+        <th class="text-center">Exchange</th>
+        <th class="text-center">Contract Note</th>
+        <th class="text-center">Status</th>  
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="o in orderBookEntries">
+        <td class="col-md-2 text-center">{{o.orderDate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+        <td class="col-md-1 text-center">{{o.stock}}</td>
+        <td class="col-md-1 text-center">{{o.action}}</td>
+        <td class="col-md-1 text-center">{{o.quantity}}</td>
+        <td class="col-md-1 text-center">{{o.price | currency:"&#2352; ":2}}</td>
+        <td class="col-md-1 text-center">{{o.tradeValue | currency:"&#2352; ":2}}</td>
+        <td class="col-md-1 text-center">{{o.brokerage | currency:"&#2352; ":2}}</td>
+        <td class="col-md-1 text-center">{{o.taxes | currency:"&#2352; ":2}}</td>
+        <td class="col-md-1 text-center">{{o.exchange}}</td>
+        <td class="col-md-1 text-center">{{o.contractNote}}</td>
+        <td class="col-md-1 text-center">Pending</td>
+      </tr>
+    </tbody>
+  </table> 
+    </div>  
+</div>     

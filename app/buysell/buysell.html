@@ -1,0 +1,406 @@
+    <trade-simulator-navbar></trade-simulator-navbar>
+<style>
+
+    .form-horizontal .control-label {
+    text-align: left !important;
+}
+</style>
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-md-12">                
+    <ul class="nav nav-tabs" layout-align="start center">
+        <li class="active"><a data-toggle="tab" href="javascript:void(0);#sectionA">Buy</a></li>
+        <li><a data-toggle="tab" href="javascript:void(0);#sectionB">Sell</a></li>
+    </ul>
+                    </div>
+                </div>
+    <div class="tab-content">
+        <div id="sectionA" class="tab-pane fade in active">
+
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="panel panel-info">
+                        <div class="panel-heading">Buy Cash</div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" ng-submit="buyCashForm.$valid && submitCashBuyTrade()" name="buyCashForm" ng-app  role="form" action="#buyConfirm">
+                        <div class="col-md-6">
+                         
+
+
+
+                      <div class="form-group">
+                        <label class="col-sm-5 control-label">Product</label>
+                        <div class="col-sm-7">
+                          <div class="radio">
+                            <label class="radio-inline">
+                              <input type="radio" name="product" id="productCash" ng-model = "buyCashFormData.product" ng-required="!buyCashFormData.product"   value="Cash"> Cash
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="product" id="productFlexiCash"  ng-model = "buyCashFormData.product" ng-required="!buyCashFormData.product"  value="FlexiCash"> Flexi Cash
+                            </label>
+                          </div>
+                            <span style = "color:red" ng-show = "(buyCashForm.product.$dirty && buyCashForm.product.$invalid) || submitted">
+                                <span ng-show = "buyCashForm.product.$error.required">Product is required.</span>              			
+                            </span>                             
+                        </div>
+                      </div> 
+
+                      <div class="form-group">
+                        <label class="col-sm-5 control-label">Exchange</label>
+                        <div class="col-sm-7">
+                          <div class="radio">
+                            <label class="radio-inline">
+                              <input type="radio" name="exchange" id="exchangeBSE" ng-model = "buyCashFormData.exchange" ng-required="!buyCashFormData.exchange"  value="BSE"> BSE
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="exchange" id="exchangeNSE" ng-model = "buyCashFormData.exchange"  ng-required="!buyCashFormData.exchange" value="NSE"> NSE
+                            </label>
+                          </div>
+                            <span style = "color:red" ng-show = "(buyCashForm.exchange.$dirty && buyCashForm.exchange.$invalid) || submitted">
+                                <span ng-show = "buyCashForm.exchange.$error.required">Exchange is required.</span>              			
+                            </span>                              
+                        </div>
+                      </div>                           
+
+                      <div class="form-group">
+                        <label for="stock" class="col-sm-5 control-label">Stock</label>
+                        <div class="col-sm-7">
+                          <input type="text" name="stock" class="form-control" ng-model = "buyCashFormData.stock" ng-required="!buyCashFormData.stock" id="buyCashStock" placeholder="Select Stock">
+                            <span style = "color:red" ng-show = "(buyCashForm.stock.$dirty && buyCashForm.stock.$invalid) || submitted">
+                                <span ng-show = "buyCashForm.stock.$error.required">Stock is required.</span>              			
+                            </span>                             
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="quantity" class="col-sm-5 control-label">Quantity</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" name="quantity" ng-model = "buyCashFormData.quantity" id="quantity" placeholder="Enter Quantity"  ng-required="!buyCashFormData.quantity"  ng-pattern="/^[0-9]+$/" ng-maxlength="4" max="9999">
+                            <span style = "color:red" ng-show = "(buyCashForm.quantity.$dirty && buyCashForm.quantity.$invalid) || submitted">
+                                <span ng-show = "buyCashForm.quantity.$error.required">Quantity is required.</span>
+                                <span ng-show = "buyCashForm.quantity.$error.pattern">Quantity must be numeric and greather than 0.</span>     
+                                <span ng-show = "buyCashForm.quantity.$error.maxlength">Value should not be more than 4 digits or 9999.</span>     
+                            </span>                               
+                        </div>
+                      </div>                          
+
+
+                      <div class="form-group">
+                        <label class="col-sm-5 control-label">Order Type</label>
+                        <div class="col-sm-7">
+                          <div class="radio">
+                            <label class="radio-inline">
+                              <input type="radio" name="orderType" id="orderTypeMarket" ng-model = "buyCashFormData.orderType" ng-required="!buyCashFormData.orderType"  value="market"> Market
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="orderType" id="orderTypeLimit" ng-model = "buyCashFormData.orderType" ng-required="!buyCashFormData.orderType"  value="limit"> Limit
+                            </label>                              
+                          </div>
+                            <span style = "color:red" ng-show = "(buyCashForm.orderType.$dirty && buyCashForm.orderType.$invalid) || submitted">
+                                <span ng-show = "buyCashForm.orderType.$error.required">Order type is required.</span>              			
+                            </span>                             
+                        </div>
+                      </div>                             
+
+
+                      <div class="form-group" ng-show="buyCashFormData.orderType == 'limit'">
+                        <label for="limitPrice" class="col-sm-5 control-label">Limit Price</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" name="limitPrice" ng-model = "buyCashFormData.limitPrice" ng-pattern="/^[0-9]+$/" id="limitPrice" placeholder="Enter Limit Price"  ng-maxlength="4" max="9999">
+                            <span style = "color:red" ng-show = "(buyCashForm.limitPrice.$dirty && buyCashForm.limitPrice.$invalid) || submitted">
+                                <span ng-show = "buyCashForm.limitPrice.$error.pattern">Limit Price must be numeric and greather than 0.</span>  
+                                <span ng-show = "buyCashForm.limitPrice.$error.maxlength">Value should not be more than 4 digits or 9999.</span>
+                            </span>                              
+                            
+                        </div>
+                      </div>  
+                           
+
+
+                   
+
+                          </div>                         
+                        <div class="col-md-6">
+
+
+
+
+                      <div class="form-group">
+                        <label for="viewLimit" class="col-sm-5 control-label">View Your limit</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" ng-model = "buyCashFormData.viewLimit"  id="viewLimit">
+                        </div>
+                      </div>
+
+                      <div class="form-group"  ng-show="buyCashFormData.orderType == 'market'">
+                        <label for="getQuote" class="col-sm-5 control-label">Quote</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" ng-model = "buyCashFormData.quote" ng-disabled="true" placeholder="100" value="100" name="getQuote" id="getQuote">
+                        </div>
+                      </div> 
+                      <div class="form-group"  ng-show="buyCashFormData.orderType == 'limit'">
+                        <label for="getQuote" class="col-sm-5 control-label">Quote</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" ng-model = "buyCashFormData.quote" name="getQuote" id="getQuote">
+                        </div>
+                      </div>                             
+                            
+                      <div class="form-group">
+                        <label for="disclosedQuantity" class="col-sm-5 control-label">Disclosed Quantity</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" ng-model = "buyCashFormData.disclosedQuantity"  name="disclosedQuantity" id="disclosedQuantity" value="10">
+                        </div>
+                      </div>    
+
+                      <div class="form-group">
+                        <label class="col-sm-5 control-label">Order Validity</label>
+                        <div class="col-sm-7">
+                          <div class="radio">
+                            <label class="radio-inline">
+                              <input type="radio" name="orderValidity" ng-model = "buyCashFormData.orderValidity"  id="orderValidityDay" value="BSE" checked> Day
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="orderValidity"  ng-model = "buyCashFormData.orderValidity" id="orderValidityIOC" value="NSE"> IOC
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="orderValidity"  ng-model = "buyCashFormData.orderValidity" id="orderValidityVTC" value="NSE"> VTC
+                            </label>                          
+                          </div>
+                        </div>
+                      </div>  
+                              
+
+                      <div class="form-group">
+                        <label for="stopLossTriggerPrice" class="col-sm-5 control-label">Stop Loss Trigger Price</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control" name="stopLossTriggerPrice"  ng-model = "buyCashFormData.stopLossTriggerPrice" id="stopLossTriggerPrice" placeholder="Enter Stop Loss Trigger Price">
+                        </div>
+                      </div>                               
+
+                                        
+  
+
+                          </div>   
+                                
+                            <div class="col-md-12 text-center">
+                      <button type="submit" class="btn btn btn-primary" ng-click="submitted=true">Buy Now</button>
+                              <button type="reset" class="btn btn btn-primary">Reset</button>
+                                
+                            </div>
+                                
+                        </div>
+                            
+                          </form>
+                      </div>
+
+                    </div>
+
+
+
+
+                </div>
+                <!-- /.row -->            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </div>
+        <div id="sectionB" class="tab-pane fade">
+
+            
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-12">
+                      <div class="panel panel-info">
+                        <div class="panel-heading">Sell Cash</div>
+                        <div class="panel-body">
+                            <form class="form-horizontal"  ng-submit="buyCashForm.$valid && submitCashSellTrade()"  name="sellCashForm" ng-app  role="form" action="#sellConfirm">
+                        <div class="col-md-6">
+                         
+
+
+
+                      <div class="form-group">
+                        <label class="col-sm-5 control-label">Product</label>
+                        <div class="col-sm-7">
+                          <div class="radio">
+                            <label class="radio-inline">
+                              <input type="radio" name="product"  ng-model = "buyCashFormData.product"  id="productCash" value="Cash"> Cash
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="product"  ng-model = "buyCashFormData.product" ng-required="!buyCashFormData.product" id="productFlexiCash" value="FlexiCash"> Flexi Cash
+                            </label>
+                          </div>
+                            <span style = "color:red" ng-show = "(sellCashForm.product.$dirty && sellCashForm.product.$invalid) || sellSubmitted">
+                                <span ng-show = "sellCashForm.product.$error.required">Product is required.</span>              			
+                            </span>                             
+                        </div>
+                      </div> 
+
+                      <div class="form-group">
+                        <label class="col-sm-5 control-label">Exchange</label>
+                        <div class="col-sm-7">
+                          <div class="radio">
+                            <label class="radio-inline">
+                              <input type="radio" name="exchange"  ng-model = "buyCashFormData.exchange"  ng-required="!buyCashFormData.exchange"  id="exchangeBSE" value="BSE"> BSE
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="exchange"  ng-model = "buyCashFormData.exchange"  ng-required="!buyCashFormData.exchange" id="exchangeNSE" value="NSE"> NSE
+                            </label>
+                          </div>
+                            <span style = "color:red" ng-show = "(sellCashForm.exchange.$dirty && sellCashForm.exchange.$invalid) || sellSubmitted">
+                                <span ng-show = "sellCashForm.exchange.$error.required">Exchange is required.</span>              			
+                            </span>                             
+                        </div>
+                      </div>                           
+
+                      <div class="form-group">
+                        <label for="stock" class="col-sm-5 control-label">Stock</label>
+                        <div class="col-sm-7">
+                          <input type="text" name="stock" class="form-control autocomplete-4"  ng-model = "buyCashFormData.stock" ng-required="!buyCashFormData.stock"  id="sellCashStock" placeholder="Select Stock">
+                            <span style = "color:red" ng-show = "(sellCashForm.stock.$dirty && sellCashForm.stock.$invalid) || sellSubmitted">
+                                <span ng-show = "sellCashForm.stock.$error.required">Stock is required.</span>              			
+                            </span>                             
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="quantity" class="col-sm-5 control-label">Quantity</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control"  ng-model = "buyCashFormData.quantity" name="quantity"  ng-required="!buyCashFormData.quantity"  ng-pattern="/^[0-9]+$/" id="quantity" placeholder="Enter Quantity" ng-maxlength="4" max="9999">
+                            <span style = "color:red" ng-show = "(sellCashForm.quantity.$dirty && sellCashForm.quantity.$invalid) || sellSubmitted">
+                                <span ng-show = "sellCashForm.quantity.$error.required">Quantity is required.</span>
+                                <span ng-show = "sellCashForm.quantity.$error.pattern">Quantity must be numeric and greather than 0.</span>      
+                                <span ng-show = "sellCashForm.quantity.$error.maxlength">Value should not be more than 4 digits or 9999.</span>
+                            </span>                              
+                        </div>
+                      </div>                          
+
+
+                      <div class="form-group">
+                        <label class="col-sm-5 control-label">Order Type</label>
+                        <div class="col-sm-7">
+                          <div class="radio">
+                            <label class="radio-inline">
+                              <input type="radio" name="orderType"  ng-model = "buyCashFormData.orderType"  ng-required="!buyCashFormData.orderType" id="orderTypeMarket" value="market"> Market
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="orderType"  ng-model = "buyCashFormData.orderType" ng-required="!buyCashFormData.orderType" id="orderTypeLimit" value="limit"> Limit
+                            </label>
+                          </div>
+                            <span style = "color:red" ng-show = "(sellCashForm.orderType.$dirty && sellCashForm.orderType.$invalid) || sellSubmitted">
+                                <span ng-show = "sellCashForm.orderType.$error.required">Order Type is required.</span>              			
+                            </span>                            
+                        </div>
+                      </div>                             
+
+
+                      <div class="form-group" ng-show="buyCashFormData.orderType == 'limit'">
+                        <label for="limitPrice" class="col-sm-5 control-label">Limit Price</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control"  ng-model = "buyCashFormData.limitPrice"   name="limitPrice"  ng-pattern="/^[0-9]+$/"  id="limitPrice" placeholder="Enter Limit Price" ng-maxlength="4" max="9999">
+                            <span style = "color:red" ng-show = "(sellCashForm.limitPrice.$dirty && sellCashForm.limitPrice.$invalid) || sellSubmitted">
+                                <span ng-show = "sellCashForm.limitPrice.$error.pattern">Limit Price must be numeric and greather than 0.</span>                        		  <span ng-show = "sellCashForm.limitPrice.$error.maxlength">Value should not be more than 4 digits or 9999.</span> 		
+                            </span>                             
+                        </div>
+                      </div>  
+                          </div>                         
+                        <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="viewLimit" class="col-sm-5 control-label">View Your limit</label>
+                        <div class="col-sm-7">
+                          <input type="text"  ng-model = "buyCashFormData.viewLimit"   class="form-control" id="viewLimit">
+                        </div>
+                      </div>
+ 
+                      <div class="form-group" ng-show="buyCashFormData.orderType == 'market'">
+                        <label for="getQuote" class="col-sm-5 control-label">Quote</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control"  ng-model = "buyCashFormData.quote" name="getQuote" placeholder="100" value="100" ng-disabled="true" id="getQuote">
+                        </div>
+                      </div>
+                            
+                      <div class="form-group" ng-show="buyCashFormData.orderType == 'limit'">
+                        <label for="getQuote" class="col-sm-5 control-label">Quote</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control"  ng-model = "buyCashFormData.quote" name="getQuote" value=""  id="getQuote">
+                        </div>
+                      </div>                            
+  
+
+                      <div class="form-group">
+                        <label class="col-sm-5 control-label">Order Validity</label>
+                        <div class="col-sm-7">
+                          <div class="radio">
+                            <label class="radio-inline">
+                              <input type="radio" name="orderValidity"  ng-model = "buyCashFormData.orderValidity" id="orderValidityDay" value="BSE" checked> Day
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="orderValidity"  ng-model = "buyCashFormData.orderValidity" id="orderValidityIOC" value="NSE"> IOC
+                            </label>
+                            <label class="radio-inline">
+                              <input type="radio" name="orderValidity"  ng-model = "buyCashFormData.orderValidity" id="orderValidityVTC" value="NSE"> VTC
+                            </label>                          
+                          </div>
+                        </div>
+                      </div>  
+                              
+
+                      <div class="form-group">
+                        <label for="stopLossTriggerPrice" class="col-sm-5 control-label">Stop Loss Trigger Price</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control"  ng-model = "buyCashFormData.stopLossTriggerPrice" name="stopLossTriggerPrice" id="stopLossTriggerPrice" placeholder="Enter Stop Loss Trigger Price">
+                        </div>
+                      </div>                               
+
+                                        
+  
+
+                          </div>   
+                                
+                            <div class="col-md-12 text-center">
+                      <button type="submit" class="btn btn btn-primary"  ng-click="sellSubmitted=true">Sell Now</button>
+                              <button type="reset" class="btn btn btn-primary">Reset</button>
+                                
+                            </div>
+                                
+                        </div>
+                            
+                          </form>
+                      </div>
+
+                    </div>
+
+
+
+
+                </div>
+                <!-- /.row -->             
+            
+            
+            
+            
+            
+            
+            
+        </div>
+    </div>    
+                
+                
+                
+
+            </div>
+            <!-- /#page-wrapper -->

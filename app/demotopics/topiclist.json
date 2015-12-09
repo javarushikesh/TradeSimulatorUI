@@ -1,0 +1,20 @@
+[
+    {
+        "id": "capitalmarkets", 
+        "imageUrl": "img/capitalmarkets/capital-market.jpg", 
+        "name": "Capital Markets", 
+        "snippet": "Explore Capital Markets"
+    }, 
+    {
+        "id": "derivatives", 
+        "imageUrl": "img/derivatives/derivatives-thumb.jpg", 
+        "name": "Derivatives", 
+        "snippet": "Explore All About Derivatives."
+    }, 
+    {
+        "id": "commodities", 
+        "imageUrl": "img/commodities/commodities-thumb.jpg", 
+        "name": "Commodities", 
+        "snippet": "Know About Commodities"
+    }
+]

@@ -1,0 +1,20 @@
+<trade-simulator-navbar></trade-simulator-navbar>
+<stocks-price></stocks-price>
+
+    <div id="page-wrapper">
+        <home-widgets></home-widgets>
+        <div class="row">
+            <bar-chart></bar-chart>
+            <market-summary></market-summary>
+            <news></news>
+        </div>
+    </div>
+<h3>All registered users:</h3>
+<ul>
+    <li ng-repeat="user in homeCtrl.allUsers">
+        {{user.username}} ({{user.firstName}} {{user.lastName}})
+        - <a href="#/home" ng-click="homeCtrl.deleteUser(user.id)">Delete</a>
+    </li>
+</ul>
+<p>&nbsp;</p>
+<p><a href="#/login" class="btn btn-primary">Logout</a></p>

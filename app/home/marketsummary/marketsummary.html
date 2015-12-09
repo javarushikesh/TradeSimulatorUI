@@ -1,0 +1,26 @@
+             <div class="col-lg-4" ng-controller="MarketSummeryController">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bell fa-fw"></i> Positions
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>Stock</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="odd gradeX" ng-repeat='pos in positionListArr'>
+                                        <td>{{pos.stock}}</td>
+                                        <td class="center">{{pos.qty}}</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div
+                    </div>
+                </div>

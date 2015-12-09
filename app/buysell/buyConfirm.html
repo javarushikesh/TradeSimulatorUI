@@ -1,0 +1,49 @@
+<trade-simulator-navbar></trade-simulator-navbar>
+<div id="page-wrapper" ng-controller="BuySellConfirmController">
+        <div class="row">
+        <div class="col-lg-12">
+                <h4 class="page-header">Buy Order Confirmation</h4>
+        </div>
+    </div>
+    <div class="row show-grid-lg">
+            <div class="col-lg-6 text-left confirmation-div-bg">
+                <strong>Buy Order has been placed. Reference Number:  {{$newOrder.orderNumber}}</strong>
+            </div>
+            
+    </div>
+    <!-- /.row -->
+    <div class="row">
+   <table class="table table-condensed table-bordered">
+    <thead>
+      <tr class="info">
+        <th class="text-center">Date</th>
+        <th class="text-center">Stock</th>
+        <th class="text-center">Action</th>
+        <th class="text-center">Qty.</th>
+        <th class="text-center">Price#</th>          
+        <th class="text-center">Order Value</th>          
+        <th class="text-center">Brokerage</th>
+        <th class="text-center">Taxes</th>
+        <th class="text-center">Exchange</th>
+        <th class="text-center">Contract Note</th>
+        <th class="text-center">Details</th>  
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-md-2 text-center">{{$newOrder.orderDate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+        <td class="col-md-1 text-center">{{$newOrder.stock}}</td>
+        <td class="col-md-1 text-center">{{$newOrder.action}}</td>
+        <td class="col-md-1 text-center">{{$newOrder.quantity}}</td>
+        <td class="col-md-1 text-center">{{$newOrder.price | currency :"&#2352; ":2}}</td>
+        <td class="col-md-1 text-center">{{$newOrder.tradeValue | currency :"&#2352; ":2}}</td>
+        <td class="col-md-1 text-center">{{$newOrder.brokerage | currency :"&#2352; ":2}}</td>
+        <td class="col-md-1 text-center">{{$newOrder.taxes | currency :"&#2352; ":2}}</td>
+        <td class="col-md-1 text-center">{{$newOrder.exchange}}</td>
+        <td class="col-md-1 text-center">{{$newOrder.contractNote}}</td>
+        <td class="col-md-1 text-center">N/A</td>
+      </tr>
+    </tbody>
+  </table> 
+    </div>  
+</div>     
