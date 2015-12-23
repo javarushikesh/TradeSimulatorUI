@@ -9,7 +9,7 @@ UserService.$inject = ['$http'];
       return {
          
             createUser: function(user){
-                    return $http.post('http://localhost:8080/tradesim/register', user)
+                    return $http.post('http://mumd14269.igatecorp.com:8080/tradesim/register', user)
                             .then(function(response){
                                         return response.data;
                             });

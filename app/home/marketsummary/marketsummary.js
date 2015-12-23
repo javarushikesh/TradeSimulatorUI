@@ -38,12 +38,12 @@ MarketSummeryController.$inject = ['$scope', '$rootScope', 'MarketSummaryFactory
 
 function MarketSummeryController($scope, $rootScope, MarketSummaryFactory) {
 
-    $scope.positions = MarketSummaryFactory.getPositions($rootScope.globals.currentUser.username);
-    var positionList = [];
-    angular.forEach($scope.positions, function(value, key) {
+    //$scope.positions = MarketSummaryFactory.getPositions($rootScope.globals.currentUser.username);
+    //var positionList = [];
+    /**angular.forEach($scope.positions, function(value, key) {
         var o = {'qty': value, 'stock': key};
       this.push(o);
     }, positionList);
-    $scope.positionListArr = positionList;
+    $scope.positionListArr = positionList;*/
     
 }

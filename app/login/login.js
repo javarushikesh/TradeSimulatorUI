@@ -21,11 +21,18 @@
 
         loginCtrl.user={username:'',password:''};
         
+        (function initController() {
+            // reset login status
+            AuthenticationService.ClearCredentials();
+        })();
+        
         loginCtrl.login = function(user) {
             loginCtrl.dataLoading = true;
-            AuthenticationService.login(user).
-                then(function (response) {
+            AuthenticationService.login(user)
+                .then(function (response) {
                     if (response.status == 'success') {
+                        AuthenticationService.SetCredentials(user);
+                        loginCtrl.dataLoading = false;
                         $location.path('/home');
                     } else {
                         FlashService.Error(response.message);

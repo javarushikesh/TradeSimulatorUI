@@ -48,8 +48,8 @@ WidgetController.$inject = ['$scope', '$rootScope', 'WidgetFactory'];
 
 function WidgetController($scope, $rootScope, WidgetFactory) {
 
-     $scope.buysell = WidgetFactory.getBuySellCount($rootScope.globals.currentUser.username);
-     $scope.pendingOrders = WidgetFactory.getPendingOrders($rootScope.globals.currentUser.username);
+     //$scope.buysell = WidgetFactory.getBuySellCount($rootScope.globals.currentUser.username);
+     //$scope.pendingOrders = WidgetFactory.getPendingOrders($rootScope.globals.currentUser.username);
     $scope.tradeValue =1000;
      
 }

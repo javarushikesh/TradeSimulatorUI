@@ -18,7 +18,7 @@ function HomeController(UserService, $rootScope) {
     homeCtrl.allUsers = [];
     homeCtrl.deleteUser = deleteUser;
 
-    initController();
+    //initController();
 
     function initController() {
         loadCurrentUser();

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.navbar', ['ngRoute'])
+angular.module('myApp.navbar', ['ngRoute','myApp.authenticationService'])
 
 .directive('tradeSimulatorNavbar', [function() {
     return{
@@ -9,8 +9,10 @@ angular.module('myApp.navbar', ['ngRoute'])
     };
 }])
 .controller('TabController',TabController);
+
+TabController.$inject = ['$location', 'AuthenticationService'];
             
-function TabController(){
+function TabController($location, AuthenticationService){
     this.tab = 1;
     
     this.selectTab = function(setTab){
@@ -20,4 +22,12 @@ function TabController(){
     this.isSelected = function(checkTab){
         return this.tab === checkTab;
     };
+    
+    this.logout = function (){
+        AuthenticationService.logout()
+        .then(function (response) {
+                    if (response.status == 'success') {
+                        $location.path('/login');
+                    }});
+    }
 }            
