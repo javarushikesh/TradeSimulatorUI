@@ -29,6 +29,9 @@ angular
 
 BuySellFactory.$inject = ['$localStorage','$http'];         
 function BuySellFactory ($localStorage,$http){
+    
+    var tradeData = {};
+    
     return {
         submitBuySellCash: function(form){
         return $http.post('http://mumd14269.igatecorp.com:8080/tradesim/submitTrade', form)
@@ -38,7 +41,11 @@ function BuySellFactory ($localStorage,$http){
         },
         
         populateConfirmData : function(data){
-            
+            tradeData = data;
+        },
+        
+        getConfirmData : function(){
+            return tradeData;
         },
         
         getNewOrder: function(userName){
@@ -46,12 +53,18 @@ function BuySellFactory ($localStorage,$http){
         },
         
         getOrders: function(userName){
-
+            return $http.post('http://mumd14269.igatecorp.com:8080/tradesim/listOrderBook', userName) 
+            .then(function(response){
+            return response.data;
+        });
         },
         
         
          getTradeOrders: function(userName){
-        
+            return $http.post('http://mumd14269.igatecorp.com:8080/tradesim/listTradeBook', userName) 
+            .then(function(response){
+            return response.data;
+        });
         }        
     }               
 }         
@@ -116,6 +129,7 @@ function BuySellController($scope, $rootScope, BuySellFactory, $timeout,$http, $
             .then(function(response){
             if(response.status = 'success'){
                 alert("Success");
+                BuySellFactory.populateConfirmData(response);
                 $location.path('/buyConfirm')
             }else{
                 alert("call Failed");
@@ -124,47 +138,41 @@ function BuySellController($scope, $rootScope, BuySellFactory, $timeout,$http, $
      }
     
     $scope.submitCashSellTrade = function() {        
-    BuySellFactory.submitBuySellCash($rootScope.globals.currentUser.username, $scope.buyCashFormData, 'SELL');
+        $scope.buyCashFormData.username = $rootScope.globals.currentUser.username;
+        $scope.buyCashFormData.action = 'SELL';
+        BuySellFactory.submitBuySellCash($scope.buyCashFormData)
+            .then(function(response){
+            if(response.status = 'success'){
+                alert("Success");
+                BuySellFactory.populateConfirmData(response);
+                $location.path('/sellConfirm')
+            }else{
+                alert("call Failed");
+            }
+        })
      }    
 }
 
 
 BuySellConfirmController.$inject = ['$scope', '$rootScope', 'BuySellFactory'];
 function BuySellConfirmController($scope, $rootScope, BuySellFactory) {
-    
-    
-    $scope.$newBuyOrder = {};
-    var currentUser = $rootScope.globals.currentUser.username;
-    $scope.$newOrder = BuySellFactory.getNewOrder($rootScope.globals.currentUser.username);
+    $scope.$newOrder = BuySellFactory.getConfirmData();
 }
 
 OrderBookController.$inject = ['$scope', '$rootScope', 'BuySellFactory'];
 function OrderBookController($scope, $rootScope, BuySellFactory) {
     var currentUser = $rootScope.globals.currentUser.username;
-    $scope.orderBookEntriesAll = BuySellFactory.getOrders($rootScope.globals.currentUser.username);
-    
-    $scope.orderBookEntries = [];
-    
-    angular.forEach($scope.orderBookEntriesAll, function(value, key){
-        if (value.username == $rootScope.globals.currentUser.username && value.orderStatus == 'P') {                    
-            $scope.orderBookEntries.push(value);
-        }                
-    });  
-    
+    BuySellFactory.getOrders($rootScope.globals.currentUser.username)
+    .then(function(response){
+        $scope.orderBookEntries = response;    
+    });
 }
 
 TradeBookController.$inject = ['$scope', '$rootScope', 'BuySellFactory'];
 function TradeBookController($scope, $rootScope, BuySellFactory) {
-    
     var currentUser = $rootScope.globals.currentUser.username;
-    $scope.orderBookEntriesAll = BuySellFactory.getTradeOrders($rootScope.globals.currentUser.username);
-    
-    $scope.orderBookEntries = [];
-    
-    angular.forEach($scope.orderBookEntriesAll, function(value, key){
-        if (value.username == $rootScope.globals.currentUser.username && value.orderStatus == 'E') {                    
-            $scope.orderBookEntries.push(value);
-        }                
+    BuySellFactory.getTradeOrders($rootScope.globals.currentUser.username)
+    .then(function(response){
+        $scope.tradeBookEntries = response;    
     });
-    
 }
