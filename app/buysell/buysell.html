@@ -4,6 +4,15 @@
     .form-horizontal .control-label {
     text-align: left !important;
 }
+    
+  
+.typeAheadActive{
+	background-color: #D3D3D3;
+	color:#000000;
+}
+
+  
+    
 </style>
             <div id="page-wrapper">
                 <div class="row">
@@ -64,7 +73,9 @@
                       <div class="form-group">
                         <label for="stock" class="col-sm-5 control-label">Stock</label>
                         <div class="col-sm-7">
-                          <input type="text" name="stock" class="form-control" ng-model = "buyCashFormData.stock" ng-required="!buyCashFormData.stock" id="buyCashStock" placeholder="Select Stock">
+
+<typeahead items="items" prompt="Select Stock" title="name" subtitle="abbreviation" model="name" on-select="onItemSelected()" />
+                            
                             <span style = "color:red" ng-show = "(buyCashForm.stock.$dirty && buyCashForm.stock.$invalid) || submitted">
                                 <span ng-show = "buyCashForm.stock.$error.required">Stock is required.</span>              			
                             </span>                             
@@ -198,7 +209,7 @@
                       <div class="panel panel-info">
                         <div class="panel-heading">Sell Cash</div>
                         <div class="panel-body">
-                            <form class="form-horizontal"  ng-submit="buyCashForm.$valid && submitCashSellTrade()"  name="sellCashForm" ng-app  role="form">
+                            <form class="form-horizontal"  ng-submit="sellCashForm.$valid && submitCashSellTrade()"  name="sellCashForm" ng-app  role="form">
                         <div class="col-md-6">
                          
 
@@ -241,7 +252,7 @@
                       <div class="form-group">
                         <label for="stock" class="col-sm-5 control-label">Stock</label>
                         <div class="col-sm-7">
-                          <input type="text" name="stock" class="form-control autocomplete-4"  ng-model = "buyCashFormData.stock" ng-required="!buyCashFormData.stock"  id="sellCashStock" placeholder="Select Stock">
+                        <typeahead items="items" prompt="Select Stock" title="name" subtitle="abbreviation" model="name" on-select="onItemSelected()" />
                             <span style = "color:red" ng-show = "(sellCashForm.stock.$dirty && sellCashForm.stock.$invalid) || sellSubmitted">
                                 <span ng-show = "sellCashForm.stock.$error.required">Stock is required.</span>              			
                             </span>                             

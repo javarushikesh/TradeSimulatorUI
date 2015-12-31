@@ -1,0 +1,6 @@
+<input type="text" name="stock" class="form-control" ng-model = "buyCashFormData.stock" ng-required="!buyCashFormData.stock" placeholder="{{prompt}}" ng-keydown="selected=false" autocomplete="off" /><br/> 
+<span ng-hide="!buyCashFormData.stock.length || selected">
+	<div ng-repeat="item in items | filter:buyCashFormData.stock  track by $index" ng-click="handleSelection(item)" style="cursor:pointer" ng-class="{typeAheadActive:isCurrent($index)}" ng-mouseenter="setCurrent($index)">
+		<span>{{item[title]}}</span>
+	</div>
+</span>

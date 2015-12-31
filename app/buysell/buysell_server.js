@@ -1,6 +1,6 @@
 'use strict';  
 angular
-.module('myApp.buysell', ['ngRoute', 'ngStorage'])
+.module('myApp.buysell', ['ngRoute', 'ngStorage', 'angularjs-autocomplete'])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/buysell', {
     templateUrl: 'buysell/buysell.html',
@@ -22,6 +22,49 @@ angular
 }])
 
 .factory('BuySellFactory',BuySellFactory)
+.factory('dataFactory', function($http) {
+  return {
+    get: function(url) {
+      return $http.get(url).then(function(resp) {
+        return resp.data;
+      });
+    }
+  };
+})
+.directive('typeahead', function($timeout) {
+  return {
+    restrict: 'AEC',
+    scope: {
+		items: '=',
+		prompt:'@',
+		title: '@',
+		subtitle:'@',
+		model: '=',
+		onSelect:'&'
+	},
+	link:function(scope,elem,attrs){
+	   scope.handleSelection=function(selectedItem){
+		 scope.model=selectedItem.abbreviation;
+		 scope.buyCashFormData.stock=selectedItem.name;
+		 scope.current=0;
+		 scope.selected=true;        
+		 $timeout(function(){
+			 scope.onSelect();
+		  },200);
+	  };
+	  scope.current=0;
+	  scope.selected=true;
+	  scope.isCurrent=function(index){
+		 return scope.current==index;
+	  };
+	  scope.setCurrent=function(index){
+		 scope.current=index;
+	  };
+	},
+    templateUrl: 'buysell/templateurl.html'
+  }
+})
+
 .controller('BuySellController', BuySellController)
 .controller('BuySellConfirmController', BuySellConfirmController)
 .controller('OrderBookController', OrderBookController)
@@ -69,53 +112,21 @@ function BuySellFactory ($localStorage,$http){
     }               
 }         
          
-BuySellController.$inject = ['$scope', '$rootScope', 'BuySellFactory', '$timeout','$http','$location'];
-function BuySellController($scope, $rootScope, BuySellFactory, $timeout,$http, $location) {
+BuySellController.$inject = ['$scope', '$rootScope', 'BuySellFactory', '$timeout','$http','$location', 'dataFactory'];
+function BuySellController($scope, $rootScope, BuySellFactory, $timeout,$http, $location, dataFactory) {
+    
+    
+    dataFactory.get('http://mumd14269.igatecorp.com:8080/tradesim/listAllStocks').then(function(data){
+		$scope.items=data;
+	});
+	$scope.name="";
+	$scope.onItemSelected=function(){
+		console.log('selected='+$scope.name);
+        $scope.buyCashFormData.stock = $scope.name;
+	}
     
     var buysellCtrlBuySellCash = this;
-    var dataelem = [
-    
-        {
-		       label: "APPLE INC",
-		       value: "APPL"
-        },
-        
-        {
-		       label: "IBM SOLUTIONS",
-		       value: "IBM"
-        },
-        
-        {
-		       label: "RELIENCE INDUSTRIES",
-		       value: "REL"
-        },
-        
-        {
-		       label: "GOOGLE INC",
-		       value: "GOOGLE"
-        }
-        
-    ];
-        
-     $( "#sellCashStock" ).autocomplete({
-	         source: dataelem,
-             select: function() { 
-                    $timeout(function() { 
-                      $("#sellCashStock").trigger('input'); 
-                    }, 10); 
-                } 
-      
-	 });
-    
-     $( "#buyCashStock" ).autocomplete({
-	         source: dataelem,
-             select: function() { 
-                    $timeout(function() { 
-                      $("#buyCashStock").trigger('input'); 
-                    }, 10); 
-                } 
-      
-	 });    
+
     
     $scope.buyCashFormData = {};
     $scope.$newBuyOrder = {};
