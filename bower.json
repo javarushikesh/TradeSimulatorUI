@@ -24,6 +24,7 @@
     "ngstorage": "~0.3.10",
     "jquery-ui": "~1.11.4",
     "angular-messages": "~1.4.8",
-    "angularjs-autocomplete": "~0.4.8"
+    "angularjs-autocomplete": "~0.4.8",
+    "angular-sanitize": "~1.4.8"
   }
 }
