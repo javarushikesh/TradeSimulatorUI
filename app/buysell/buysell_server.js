@@ -70,14 +70,14 @@ angular
 .controller('OrderBookController', OrderBookController)
 .controller('TradeBookController', TradeBookController);
 
-BuySellFactory.$inject = ['$localStorage','$http'];         
-function BuySellFactory ($localStorage,$http){
+BuySellFactory.$inject = ['$localStorage','$http', 'AppConfig'];         
+function BuySellFactory ($localStorage,$http, AppConfig){
     
     var tradeData = {};
     
     return {
         submitBuySellCash: function(form){
-        return $http.post('http://mumd14269.igatecorp.com:8080/tradesim/submitTrade', form)
+        return $http.post(AppConfig.appURL + '/tradesim/submitTrade', form)
             .then(function(response){
             return response.data;
         });
@@ -96,7 +96,7 @@ function BuySellFactory ($localStorage,$http){
         },
         
         getOrders: function(userName){
-            return $http.post('http://mumd14269.igatecorp.com:8080/tradesim/listOrderBook', userName) 
+            return $http.post(AppConfig.appURL + '/tradesim/listOrderBook', userName) 
             .then(function(response){
             return response.data;
         });
@@ -104,7 +104,7 @@ function BuySellFactory ($localStorage,$http){
         
         
          getTradeOrders: function(userName){
-            return $http.post('http://mumd14269.igatecorp.com:8080/tradesim/listTradeBook', userName) 
+            return $http.post(AppConfig.appURL + '/tradesim/listTradeBook', userName) 
             .then(function(response){
             return response.data;
         });
@@ -112,11 +112,11 @@ function BuySellFactory ($localStorage,$http){
     }               
 }         
          
-BuySellController.$inject = ['$scope', '$rootScope', 'BuySellFactory', '$timeout','$http','$location', 'dataFactory'];
-function BuySellController($scope, $rootScope, BuySellFactory, $timeout,$http, $location, dataFactory) {
+BuySellController.$inject = ['$scope', '$rootScope', 'BuySellFactory', '$timeout','$http','$location', 'dataFactory', 'AppConfig'];
+function BuySellController($scope, $rootScope, BuySellFactory, $timeout,$http, $location, dataFactory, AppConfig) {
     
     
-    dataFactory.get('http://mumd14269.igatecorp.com:8080/tradesim/listAllStocks').then(function(data){
+    dataFactory.get(AppConfig.appURL + '/tradesim/listAllStocks').then(function(data){
 		$scope.items=data;
 	});
 	$scope.name="";
@@ -139,11 +139,10 @@ function BuySellController($scope, $rootScope, BuySellFactory, $timeout,$http, $
         BuySellFactory.submitBuySellCash($scope.buyCashFormData)
             .then(function(response){
             if(response.status = 'success'){
-                alert("Success");
                 BuySellFactory.populateConfirmData(response);
                 $location.path('/buyConfirm')
             }else{
-                alert("call Failed");
+
             }
         })
      }
@@ -154,11 +153,10 @@ function BuySellController($scope, $rootScope, BuySellFactory, $timeout,$http, $
         BuySellFactory.submitBuySellCash($scope.buyCashFormData)
             .then(function(response){
             if(response.status = 'success'){
-                alert("Success");
                 BuySellFactory.populateConfirmData(response);
                 $location.path('/sellConfirm')
             }else{
-                alert("call Failed");
+
             }
         })
      }    

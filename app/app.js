@@ -18,8 +18,13 @@ angular.module('myApp', [
   'phonecatControllers',
   'phonecatFilters',
   'phonecatServices'
-]).
-config(['$routeProvider', function($routeProvider) {
+])
+.constant('AppConfig', {
+    appName: 'Trade Simulator',
+    appVersion: 2.0,
+    appURL: 'http://mumd14269.igatecorp.com:8080'
+})
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider.
       when('/demos', {
         templateUrl: 'demos/phone-list.html',

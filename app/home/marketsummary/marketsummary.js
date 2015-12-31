@@ -10,12 +10,12 @@ angular.module('myApp.home')
 .factory('MarketSummaryFactory', MarketSummaryFactory)
 .controller('MarketSummeryController', MarketSummeryController);
 
-MarketSummaryFactory.$inject = ['$http'];
+MarketSummaryFactory.$inject = ['$http', 'AppConfig'];
 
-function MarketSummaryFactory ($http){
+function MarketSummaryFactory ($http, AppConfig){
     return {             
          getPositions: function(userName){
-               return $http.post('http://mumd14269.igatecorp.com:8080/tradesim/getPositions', userName) 
+               return $http.post(AppConfig.appURL +'/tradesim/getPositions', userName) 
             .then(function(response){
                 return response.data;
         });

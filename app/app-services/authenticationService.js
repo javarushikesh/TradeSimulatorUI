@@ -4,13 +4,13 @@ angular
 .module('myApp.authenticationService',['ngCookies'])
 .factory('AuthenticationService', AuthenticationService);
 
-AuthenticationService.$inject = ['$http','$cookieStore','$rootScope'];
-function AuthenticationService($http, $cookieStore, $rootScope) {
+AuthenticationService.$inject = ['$http','$cookieStore','$rootScope', 'AppConfig'];
+function AuthenticationService($http, $cookieStore, $rootScope, AppConfig) {
     return {
         
         //Authentication Service
         login: function(user){
-return $http.post('http://mumd14269.igatecorp.com:8080/tradesim/authenticate', user)
+return $http.post(AppConfig.appURL + '/tradesim/authenticate', user)
                             .then(function(response){
                                         return response.data;
                             });
